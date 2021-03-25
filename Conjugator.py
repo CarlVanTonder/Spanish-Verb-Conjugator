@@ -1,6 +1,6 @@
 import re
 
-INFINITIVE = 'comer'  # input('Input a verb')
+INFINITIVE = input('Input a verb infinitive: ')
 
 def BUILD_STEM(stem, infinitive, mood, tense, person):
     final_stem = stem
@@ -105,7 +105,7 @@ def BUILD_STEM(stem, infinitive, mood, tense, person):
                         if infinitive in umlaut_verbs_o:
                             if (mood == 'Indicative' or 'Subjunctive') and (tense == 'Present') \
                                     and (person in ['1s', '2s', '3s', '3p']):
-                                return diphthong_o(temp_stem)
+                                return diphthong_o(temp_stem)[::-1]
 
                             elif ((tense == 'Preterit') and (person in ['3s', '3p'])) \
                                     or (mood == 'Subjunctive', tense == 'Present', person in ['1p', '2p']):
