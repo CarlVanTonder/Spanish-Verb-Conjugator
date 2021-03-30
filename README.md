@@ -1,2 +1,5 @@
 # Spanish-Verb-Conjugator
-A set of bundled algorithms which outputs a list of conjugated spanish verbs depending on mood, tense and person.  
+ 
+Basic summary: A program which takes an input of a Spanish verb infinitive and outputs a list of all the possible simple conjugations (i.e. not compound). 
+
+More comprehensive outline: 
