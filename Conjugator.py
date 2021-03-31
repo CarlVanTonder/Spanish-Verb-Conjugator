@@ -55,97 +55,92 @@ def build_stem(infinitive, mood, tense, person):
         elif (mood == 'Participles') and (tense == 'Present'):
             return re.sub('u$', 'uy', stem)
 
-    # def stemchange(temp_stem, infinitive, mood, tense, person):
-    #     END = infinitive[-2:]
-    #     diphthong_verbs_o = ('mostrar', 'mover', 'dormir')
-    #     diphthong_verbs_e = ('pensar', 'perder')
-    #     umlaut_verbs_o = ('dormir')
-    #
-    #     def diphthong_o(stem):
-    #         # if INFINITIVE in PLACEHOLDER_LIST:
-    #         stem = stem.replace('o', 'eu', 1)[::-1]
-    #         if stem.startswith('ue'):
-    #             return stem.replace('ue', 'hue', 1)
-    #         return stem
-    #
-    #     def diphthong_e(stem):
-    #         # if INFINITIVE in PLACEHOLDER_LIST:
-    #         stem = stem.replace('e', 'ei', 1)[::-1]
-    #         if stem.startswith('ie'):
-    #             return stem.replace('ie', 'ye', 1)
-    #         return stem
-    #
-    #     def umlaut_o(stem):
-    #         return stem[::-1].replace('o', 'u', 1)[::-1]
-    #
-    #     def umlaut_e(stem):
-    #         return stem[::-1].replace('e', 'i', 1)[::-1]
-    #
-    #     for i in temp_stem[::-1]:
-    #
-    #         if (i == 'e') or (i == 'o'):
-    #             STEM_VOWEL = i
-    #
-    #             if (END == 'ar') or (END == 'er'):
-    #                 if (mood == 'Indicative' or 'Subjunctive') and (tense == 'Present') \
-    #                         and (person in ['1s', '2s', '3s', '3p']):
-    #                     if STEM_VOWEL == 'o':
-    #                         if infinitive in diphthong_verbs_o:
-    #                             return diphthong_o(temp_stem)
-    #
-    #                     if STEM_VOWEL == 'e':
-    #                         if infinitive in diphthong_verbs_e:
-    #                             return diphthong_e(temp_stem)
-    #
-    #             else:
-    #                 if STEM_VOWEL == 'o':
-    #                     if infinitive in umlaut_verbs_o:
-    #                         if (mood == 'Indicative' or 'Subjunctive') and (tense == 'Present') \
-    #                                 and (person in ['1s', '2s', '3s', '3p']):
-    #                             return diphthong_o(temp_stem)[::-1]
-    #
-    #                         elif ((tense == 'Preterit') and (person in ['3s', '3p'])) \
-    #                                 or (mood == 'Subjunctive', tense == 'Present', person in ['1p', '2p']):
-    #                             return umlaut_o(temp_stem)
-    #
-    #                         else:
-    #                             break
-    #
-    #                 if STEM_VOWEL == 'e':
-    #                     if mood == 'Indicative':
-    #                         if (tense == 'Present') and (person in ['1s', '2s', '3s', '3p']):
-    #                             if temp_stem.endswith('nt'):
-    #                                 return diphthong_e(temp_stem)
-    #                             elif temp_stem.endswith('ed'):
-    #                                 return umlaut_e(temp_stem)
-    #                         elif (tense == 'Preterite') and (temp_stem.endswith('ed' or 'nt')) and (
-    #                                 person in ['3s', '3p']):
-    #                             return umlaut_e(temp_stem)
-    #
-    #                     elif (mood == 'Subjunctive') and (tense == 'Present'):
-    #                         if temp_stem.endswith('nt'):
-    #                             if person in ['1s', '2s', '3s', '3p']:
-    #                                 return diphthong_e(temp_stem)
-    #                             else:
-    #                                 return umlaut_e(temp_stem)
-    #
-    #                         elif temp_stem.endswith('ed'):
-    #                             return umlaut_e(temp_stem)
-    #
-    # if basicorthcorrections(final_stem, infinitive, mood, tense, person):
-    #     final_stem = basicorthcorrections(final_stem, infinitive, mood, tense, person)
-    #
-    # if ctozc(final_stem, infinitive, mood, tense, person):
-    #     final_stem = ctozc(final_stem, infinitive, mood, tense, person)
-    #
-    # if utouy(final_stem, infinitive, mood, tense, person):
-    #     final_stem = utouy(final_stem, infinitive, mood, tense, person)
-    #
-    # if stemchange(final_stem, infinitive, mood, tense, person):
-    #     final_stem = stemchange(final_stem, infinitive, mood, tense, person)
+    # Unpredictable verb changes
+
+    # Stem changes (e > ie, o > ue, e > i, o > u)
+    stem_changing_verbs = {
+        'ar': {
+            'diphthong_e': ('abnegar', 'acertar', 'acrecentar', 'alentar', 'apacentar', 'apretar', 'arrendar', 'asentar', 'aserrar', 'atravesar', 'aventar', 'calentar', 'cegar', 'cerrar', 'cimentar', 'comenzar', 'concertar', 'confesar', 'denegar', 'desacertar', 'desapretar', 'desarrendar', 'desasosegar', 'desconcertar', 'desempedrar', 'desenterrar', 'deshelar', 'desmembrar', 'despertar', 'desplegar', 'desterrar', 'emparentar', 'empedrar', 'empezar', 'encerrar', 'encomendar', 'enmendar', 'enterrar', 'errar', 'escarmentar', 'fregar', 'gobernar', 'herrar', 'incensar', 'manifestar', 'mentar', 'merendar', 'negar', 'pensar', 'plegar', 'quebrar', 'recalentar', 'recomendar', 'recomenzar', 'refregar', 'regar', 'remendar', 'renegar', 'repensar', 'replegar', 'requebrar', 'restregar', 'retentar', 'reventar', 'salpimentar', 'segar', 'sembrar', 'sentar', 'serrar', 'sosegar', 'soterrar', 'subarrendar', 'temblar', 'tentar', 'trasegar', 'tropezar'),
+            'diphthong_o': ('acordar', 'acostar', 'agorar', 'almorzar', 'aprobar', 'atronar', 'avergonzar', 'colar', 'comprobar', 'concordar', 'consolar', 'contar', 'costar', 'demostrar', 'denostar', 'desaprobar', 'descolgar', 'descollar', 'descontar', 'desollar', 'desosar', 'despoblar', 'discordar', 'emporcar', 'encontrar', 'encordar', 'esforzar', 'forzar', 'holgar', 'hollar', 'mostrar', 'poblar', 'probar', 'recontar', 'recordar', 'recostar', 'reencontrar', 'reforzar', 'renovar', 'repoblar', 'reprobar', 'resonar', 'revolcar', 'rodar', 'rogar', 'sobrevolar', 'soldar', 'soltar', 'sonar', 'soñar', 'tostar', 'trocar', 'volar', 'volcar')
+        },
+        'er': {
+            'diphthong_e': ('ascender', 'atender', 'cerner', 'condescender', 'contender', 'defender', 'desatender', 'descender', 'distender', 'encender', 'entender', 'extender', 'heder', 'perder', 'sobrentender', 'tender', 'trascender', 'verter'),
+            'diphthong_o': ['absolver', 'volver', 'cocer', 'conmover', 'demoler', 'desenvolver', 'devolver', 'disolver', 'doler', 'envolver', 'escocer', 'moler', 'morder', 'mover', 'oler', 'promover', 'recocer', 'remorder', 'remover', 'resolver', 'retorcer', 'revolver', 'torcer', 'volver']
+        },
+        'ir': {
+            'diphthong/umlaut_e': ('adherir', 'advertir', 'asentir', 'conferir', 'consentir', 'convertir', 'desmentir', 'diferir', 'digerir', 'disentir', 'divertir', 'erguir', 'herir', 'hervir', 'inferir', 'ingerir', 'injerir', 'interferir', 'invertir', 'malherir', 'mentir', 'pervertir', 'preferir', 'presentir', 'proferir', 'reconvertir', 'referir', 'reinvertir', 'requerir', 'revertir', 'sentir', 'subvertir', 'sugerir', 'transferir', 'zaherir'),
+            'umlaut_e': ('ceñir', 'colegir', 'competir', 'concebir', 'conseguir', 'constreñir', 'corregir', 'derretir', 'despedir', 'desteñir', 'desvestir', 'elegir', 'embestir', 'estreñir', 'expedir', 'gemir', 'henchir', 'heñir', 'impedir', 'investir', 'medir', 'pedir', 'perseguir', 'preconcebir', 'proseguir', 'reeligir', 'reexpedir', 'regir', 'rendir', 'reñir', 'repetir', 'reteñir', 'revestir', 'seguir', 'servir', 'teñir', 'travestir', 'vestir'),
+            'diphthong/umlaut_o': ('dormir', 'morir')
+        }
+    }
+
+    def diphthong_o(stem):
+        stem = stem[::-1].replace('o', 'eu', 1)[::-1]
+        if stem.startswith('ue'):
+            return stem.replace('ue', 'hue', 1)
+        return stem
+
+    def diphthong_e(stem):
+        stem = stem[::-1].replace('e', 'ei', 1)[::-1]
+        if stem.startswith('ie'):
+            return stem.replace('ie', 'ye', 1)
+        return stem
+
+    def umlaut_o(stem):
+        return stem[::-1].replace('o', 'u', 1)[::-1]
+
+    def umlaut_e(stem):
+        return stem[::-1].replace('e', 'i', 1)[::-1]
+
+    stem_vowel = ''
+    for i in stem[::-1]:
+        if i in ('a', 'e', 'i', 'o', 'u'):
+            stem_vowel = i
+            break
+
+    if (end == 'ar') or (end == 'er'):
+        if (mood == 'Indicative' or 'Subjunctive') and (tense == 'Present') and (person in ['1s', '2s', '3s', '3p']):
+            if stem_vowel == 'o':
+                if infinitive in stem_changing_verbs[end]['diphthong_o']:
+                    stem = diphthong_o(stem)
+
+            elif stem_vowel == 'e':
+                if infinitive in stem_changing_verbs[end]['diphthong_e']:
+                    stem = diphthong_e(stem)
+
+        elif end == 'ir':
+            if stem_vowel == 'o':
+                if infinitive in stem_changing_verbs['ir']['diphthong/umlaut_o']:
+                    if (mood == 'Indicative' or 'Subjunctive') and (tense == 'Present') \
+                            and (person in ['1s', '2s', '3s', '3p']):
+                        stem = diphthong_o(stem)
+
+                    elif ((tense == 'Preterit') and (person in ['3s', '3p'])) \
+                            or (mood == 'Subjunctive', tense == 'Present', person in ['1p', '2p']):
+                        stem = umlaut_o(stem)
+
+            elif stem_vowel == 'e':
+                if infinitive in stem_changing_verbs['ir']['diphthong/umlaut_e']:
+                    if mood == 'Indicative':
+                        if (tense == 'Present') and (person in ['1s', '2s', '3s', '3p']):
+                            stem = diphthong_e(stem)
+                        elif (tense == 'Preterite' ) and (person in ['3s', '3p']):
+                            stem = umlaut_e(stem)
+
+                    elif mood == 'Subjunctive':
+                        if (tense == 'Present') and (person in ['1s', '2s', '3s', '3p']):
+                            stem = diphthong_e(stem)
+                        else:
+                            stem = umlaut_e(stem)
+
+                elif infinitive in stem_changing_verbs['ir']['umlaut_e']:
+                    if (mood == 'Indicative') and (tense == 'Present' and person in ['1s', '2s', '3s', '3p']) or (tense == 'Preterite' and person in ['1s', '2s', '3s', '3p']):
+                        stem = umlaut_e(stem)
+
+                    elif mood == 'Subjunctive':
+                        stem = umlaut_e(stem)
 
     return stem
-
 
 CONJUGATION_TREE = {
     'Indicative': {
@@ -257,5 +252,5 @@ for MOOD in CONJUGATION_TREE:
     for TENSE in CONJUGATION_TREE[MOOD]:
         print('\t' + TENSE)
         for PERSON in CONJUGATION_TREE[MOOD][TENSE]:
-            STEM = build_stem(STEM, INFINITIVE, MOOD, TENSE, PERSON)
-            print('\t\t' + PERSON + ': ' + CONJUGATION_TREE[MOOD][TENSE][PERSON][END])
+            STEM = build_stem(INFINITIVE, MOOD, TENSE, PERSON)
+            print('\t\t' + PERSON + ': ' + STEM + CONJUGATION_TREE[MOOD][TENSE][PERSON][END])
